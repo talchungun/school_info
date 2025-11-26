@@ -1,0 +1,28 @@
+# 가상환경
+venv/
+env/
+__pycache__/
+
+# 파이썬
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# 환경변수
+.env
+
+# 로컬 데이터 (선택)
+data/notice.json
+data/meal.json
+data/schedule.json
+
+# OS
+.DS_Store
+Thumbs.db
