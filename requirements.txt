@@ -1,0 +1,6 @@
+Flask
+Requests
+Beautifulsoup4
+APScheduler
+Flask-Session
+lxml

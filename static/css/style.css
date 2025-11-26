@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #016893 0%, #00B0DA 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    max-width: 1800px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(1, 104, 147, 0.3);
+    padding: 40px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===== 제목 스타일 ===== */
+.slide h1 {
+    color: #016893;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 3px solid #00B0DA;
+    padding-bottom: 15px;
+}
+
+/* ===== 급식 슬라이드 ===== */
+.meal-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    align-items: stretch;
+}
+
+.meal-box {
+    flex: 1;
+    background: linear-gradient(135deg, #98DBF4 0%, #76A3DB 100%);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(1, 104, 147, 0.2);
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.meal-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(1, 104, 147, 0.3);
+}
+
+.meal-box h2 {
+    color: #016893;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.meal-box ul {
+    list-style: none;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.meal-box ul li {
+    color: #333;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 0.95em;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.meal-box ul li:last-child {
+    border-bottom: none;
+}
+
+/* ===== 일정 슬라이드 ===== */
+#schedule-content {
+    background: linear-gradient(135deg, #f0f8ff 0%, #e8f4f9 100%);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 6px solid #016893;
+    color: #333;
+    font-size: 1.7em;
+    font-weight: 600;
+    line-height: 2.2;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    letter-spacing: 0.3px;
+}
+
+#schedule-content:empty::before {
+    content: "일정 정보가 없습니다.";
+    color: #aaa;
+    font-size: 1.2em;
+}
+
+/* ===== 공지사항 슬라이드 ===== */
+#notice-content {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#notice-content li {
+    background: linear-gradient(135deg, #E8F4F8 0%, #F0FAFF 100%);
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #00B0DA;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(1, 104, 147, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#notice-content li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(1, 104, 147, 0.2);
+}
+
+#notice-content li:empty {
+    display: none;
+}
+
+/* ===== 스크롤바 커스텀 ===== */
+.meal-box ul::-webkit-scrollbar,
+#schedule-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.meal-box ul::-webkit-scrollbar-track,
+#schedule-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.meal-box ul::-webkit-scrollbar-thumb,
+#schedule-content::-webkit-scrollbar-thumb {
+    background: #00B0DA;
+    border-radius: 10px;
+}
+
+.meal-box ul::-webkit-scrollbar-thumb:hover,
+#schedule-content::-webkit-scrollbar-thumb:hover {
+    background: #016893;
+}

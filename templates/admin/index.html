@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 관리자</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #016893 0%, #00B0DA 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(1, 104, 147, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #016893;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #00B0DA;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            color: #016893;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        textarea, input[type="datetime-local"] {
+            padding: 12px;
+            border: 2px solid #00B0DA;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus, input[type="datetime-local"]:focus {
+            outline: none;
+            border-color: #016893;
+            box-shadow: 0 0 8px rgba(1, 104, 147, 0.2);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        label {
+            color: #333;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #016893 0%, #00B0DA 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(1, 104, 147, 0.3);
+        }
+        
+        .links {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+            justify-content: center;
+        }
+        
+        .links a {
+            color: #00B0DA;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .links a:hover {
+            color: #016893;
+            text-decoration: underline;
+        }
+        
+        .notice-list {
+            list-style: none;
+        }
+        
+        .notice-list li {
+            background: linear-gradient(135deg, #E8F4F8 0%, #F0FAFF 100%);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00B0DA;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .notice-list li:empty {
+            display: none;
+        }
+        
+        .empty-notice {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>공지사항 관리자</h1>
+        
+        <form action="/admin/save" method="POST">
+            <label for="notice">공지 내용:</label>
+            <textarea id="notice" name="notice" placeholder="공지사항을 입력하세요..." required></textarea>
+            
+            <label for="expires_at">만료일 (선택):</label>
+            <input type="date" id="expires_at" name="expires_at" />
+            
+            <button type="submit">저장</button>
+        </form>
+        
+        <div class="links">
+            <a href="/">메인으로</a>
+            <a href="/admin/logout" style="color: #c62828;">로그아웃</a>
+        </div>
+        
+        <h2>현재 공지사항</h2>
+        <ul class="notice-list">
+            {% if notices %}
+                {% for n in notices %}
+                    <li>
+                        {% if n is string %}
+                            {{ n }}
+                        {% else %}
+                            <strong>{{ n.text or n.title or "" }}</strong>
+                            {% if n.expires_at %}<br><small style="color: #666;">만료: {{ n.expires_at }}</small>{% endif %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            {% else %}
+                <div class="empty-notice">등록된 공지사항이 없습니다.</div>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>

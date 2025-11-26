@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교 정보 슬라이드</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- 급식 화면 -->
+    <div class="slide active" id="slide-meal">
+        <h1>🍽️ 오늘의 급식</h1>
+        <div class="meal-container">
+            <div class="meal-box" id="breakfast">
+                <h2>조식</h2>
+                <ul id="meal-breakfast"></ul>
+            </div>
+            <div class="meal-box" id="lunch">
+                <h2>중식</h2>
+                <ul id="meal-lunch"></ul>
+            </div>
+            <div class="meal-box" id="dinner">
+                <h2>석식</h2>
+                <ul id="meal-dinner"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 일정 화면 -->
+    <div class="slide" id="slide-schedule">
+        <h1>📅 일정</h1>
+        <pre id="schedule-content"></pre>
+    </div>
+
+    <!-- 공지사항 화면 -->
+    <div class="slide" id="slide-notice">
+        <h1>📢 공지사항</h1>
+        <ul id="notice-content"></ul>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
