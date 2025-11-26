@@ -157,18 +157,44 @@
             <a href="/">메인으로</a>
             <a href="/admin/logout" style="color: #c62828;">로그아웃</a>
         </div>
+
+        <h2>D-Day 설정</h2>
+        <form action="{{ url_for('save_dday_route') }}" method="POST">
+            <label for="target_name">D-Day 이름:</label>
+            <input type="text" id="target_name" name="target_name" placeholder="예: 수능 시험, 방학" value="{{ current_dday.target_name }}" required>
+            
+            <label for="target_date">D-Day 목표일:</label>
+            <input type="date" id="target_date" name="target_date" value="{{ current_dday.target_date }}" required />
+            
+            <button type="submit" style="background: #28a745;">D-Day 설정 저장</button>
+        </form>
+
+        <p style="margin-top: 15px; text-align: center; color: #555;">
+            현재 D-Day: **{{ current_dday.target_name }}** ({{ current_dday.target_date }})
+        </p>
+
+        <hr style="margin: 30px 0; border: 0; border-top: 1px dashed #ddd;">
         
         <h2>현재 공지사항</h2>
         <ul class="notice-list">
             {% if notices %}
                 {% for n in notices %}
                     <li>
-                        {% if n is string %}
-                            {{ n }}
-                        {% else %}
-                            <strong>{{ n.text or n.title or "" }}</strong>
-                            {% if n.expires_at %}<br><small style="color: #666;">만료: {{ n.expires_at }}</small>{% endif %}
-                        {% endif %}
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="flex-grow: 1; margin-right: 15px;">
+                                {% if n is string %}
+                                    {{ n }}
+                                {% else %}
+                                    <strong>{{ n.text or n.title or n.get("text") or n.get("title") or "" }}</strong>
+                                    {% if n.expires_at %}<br><small style="color: #666;">만료: {{ n.expires_at }}</small>{% endif %}
+                                    {% if n.index is defined %}<br><small style="color: #aaa;">(Index: {{ n.index }})</small>{% endif %} 
+                                {% endif %}
+                            </div>
+                            
+                            <form action="{{ url_for('delete_notice_route', notice_index=n.index) }}" method="POST" onsubmit="return confirm('이 공지사항을 삭제하시겠습니까?');">
+                                <button type="submit" style="background: #c62828; color: white; padding: 5px 10px; font-size: 0.8em; border-radius: 4px; box-shadow: none;">삭제</button>
+                            </form>
+                        </div>
                     </li>
                 {% endfor %}
             {% else %}

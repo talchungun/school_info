@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <!-- 급식 화면 -->
     <div class="slide active" id="slide-meal">
         <h1>🍽️ 오늘의 급식</h1>
         <div class="meal-container">
@@ -26,18 +25,22 @@
         </div>
     </div>
 
-    <!-- 일정 화면 -->
     <div class="slide" id="slide-schedule">
         <h1>📅 일정</h1>
         <pre id="schedule-content"></pre>
     </div>
 
-    <!-- 공지사항 화면 -->
     <div class="slide" id="slide-notice">
         <h1>📢 공지사항</h1>
         <ul id="notice-content"></ul>
     </div>
 
+    <div class="slide" id="slide-dday">
+        <h1>🎯 D-Day</h1>
+        <div id="dday-content-container" style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
+            <p>D-Day 정보를 불러오는 중...</p>
+        </div>
+    </div>
     <script src="/static/js/main.js"></script>
 </body>
 </html>

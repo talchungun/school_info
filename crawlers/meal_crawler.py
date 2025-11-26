@@ -2,11 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-# 오늘 날짜 문자열
 def get_today_str():
     return datetime.today().strftime("%Y%m%d")
 
-# 특정 날짜 급식 가져오기
 def get_meal_by_date(date):
     url = f"https://school.use.go.kr/hcu-h/M01080101/list?ymd={date}"
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"}
@@ -29,11 +27,10 @@ def get_meal_by_date(date):
         if block:
             meals[key] = [li.get_text(strip=True) for li in block.select("li")]
         else:
-            meals[key] = []  # 해당 급식이 없으면 빈 배열로
+            meals[key] = []
 
     return meals
 
-# 오늘 급식만 반환
 def get_today_meal():
     today = get_today_str()
     return get_meal_by_date(today)

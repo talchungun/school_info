@@ -1,13 +1,62 @@
-// -----------------------------
-// DOM 요소
-// -----------------------------
 const slides = [
     document.getElementById("slide-meal"),
     document.getElementById("slide-schedule"),
-    document.getElementById("slide-notice")
+    document.getElementById("slide-notice"),
+    document.getElementById("slide-dday")
 ];
 
 let index = 0;
+
+// -----------------------------
+// D-Day 데이터 로딩 및 HTML 업데이트
+// -----------------------------
+async function loadDDay() {
+    try {
+        const res = await fetch("/api/dday");
+        const data = await res.json();
+        const container = document.getElementById("dday-content-container");
+        
+        let htmlContent = '';
+        
+        if (data.dday_count !== null) {
+            const info = data.dday_info;
+            const count = data.dday_count;
+            
+            let ddayText;
+            let ddayStyle;
+            
+            if (count > 0) {
+                ddayText = `D - ${count}`;
+                ddayStyle = "color: #c62828; font-size: 3em; font-weight: bold;";
+            } else if (count === 0) {
+                ddayText = "D - DAY!";
+                ddayStyle = "color: #28a745; font-size: 3em; font-weight: bold;";
+            } else {
+                ddayText = `D + ${Math.abs(count)}`;
+                ddayStyle = "color: #555; font-size: 2em; font-weight: bold;";
+            }
+
+            htmlContent = `
+                <div class="dday-counter" style="text-align: center; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 30px auto; max-width: 400px;">
+                    <h3 style="color: #016893; margin-bottom: 10px;">${info.target_name}</h3>
+                    <p style="${ddayStyle}">${ddayText}</p>
+                    <p style="color: #666;">(${info.target_date} 기준)</p>
+                </div>
+            `;
+        } else {
+            htmlContent = `
+                <div style="text-align: center; padding: 20px;">
+                    <p>D-Day 정보가 설정되지 않았습니다.</p>
+                </div>
+            `;
+        }
+
+        container.innerHTML = htmlContent;
+
+    } catch (error) {
+        console.error("Failed to load D-Day data:", error);
+    }
+}
 
 // -----------------------------
 // 데이터 로딩
@@ -81,17 +130,17 @@ function showSlide(i) {
     slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
 }
 
-// -----------------------------
-// 초기 로딩 및 10초 간격 전환
-// -----------------------------
 async function init() {
     await loadMeal();
     await loadSchedule();
     await loadNotice();
+    await loadDDay(); 
     showSlide(0);
 
-    // 10초마다 공지사항만 갱신
-    setInterval(loadNotice, 10 * 1000);
+    setInterval(() => {
+        loadNotice();
+        loadDDay(); 
+    }, 15 * 1000); 
 
     setInterval(() => {
         index = (index + 1) % slides.length;

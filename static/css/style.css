@@ -54,7 +54,7 @@ body {
 
 .meal-box {
     flex: 1;
-    background: linear-gradient(135deg, #98DBF4 0%, #76A3DB 100%);
+    background: linear-gradient(135deg, #98DBF4);
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(1, 104, 147, 0.2);
@@ -64,6 +64,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .meal-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(1, 104, 147, 0.3);
@@ -71,7 +72,7 @@ body {
 
 .meal-box h2 {
     color: #016893;
-    font-size: 1.5em;
+    font-size: 1.7em;
     text-align: center;
     margin-bottom: 20px;
     font-weight: 700;
@@ -86,7 +87,7 @@ body {
 
 .meal-box ul li {
     color: #333;
-    padding: 10px 0;
+    padding: 7px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 0.95em;
     font-weight: 500;
@@ -135,7 +136,7 @@ body {
     border-radius: 10px;
     border-left: 5px solid #00B0DA;
     color: #333;
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: 500;
     line-height: 1.6;
     box-shadow: 0 2px 8px rgba(1, 104, 147, 0.1);
